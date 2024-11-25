@@ -1,0 +1,21 @@
+{
+  "name": "api-course",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Aleksejs Levenciks",
+  "license": "ISC",
+  "scripts": {
+    "user": "mocha 'tests/scenarios/user/crud.js' --reporter mochawesome --timeout 20000"
+  },
+  "devDependencies": {
+    "chai": "^5.1.2",
+    "mocha": "^10.8.2",
+    "supertest": "^7.0.0"
+  },
+  "dependencies": {
+    "get-nested-value": "^1.0.3",
+    "mochawesome": "^7.1.3"
+  },
+  "type": "module"
+}
