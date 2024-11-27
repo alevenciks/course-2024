@@ -4,13 +4,14 @@ import { config } from '../../config.js'
 import { expect, assert } from 'chai'
 import getNestedValue from 'get-nested-value'
 
-export async function request(context, method, path, body = undefined, auth = true, asserts = {statusCode : 200},  host = undefined, customHeaders = undefined) {
+export async function request(context, method, path, body = undefined, auth = true, asserts = {statusCode : 200}, host = undefined, customHeaders = undefined) {
     const requestST = host ? supertest(host) : supertest(config[global.env].host)
 
     const headers = customHeaders ? customHeaders : {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        ...(auth && {'Authorization': `Bearer ${config[global.env].token}`})
+        'x-api-key': config[global.env].xApiKey,
+        ...(auth && {'Authorization': `Bearer ${global.executionVariables['userToken']}`})
     }
 
     let response = null

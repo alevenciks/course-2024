@@ -2,7 +2,7 @@
 
 **Libraries:** chai, mocha, supertest, get-nested-value, mochawesome
 
-**Requirements:** Node (min version 14)
+**Requirements:** Node (min version 18)
 
 
 ## Installation
@@ -29,3 +29,6 @@ $env - environment
  - PROD
 
 #### Execution report can be find at /mochawesome-report/mochawesome.html
+
+```
+import accountRequestBody from '../../data/user/create_account.json' with { type: 'json' }```
