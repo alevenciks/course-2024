@@ -130,7 +130,7 @@ async function validateStatusCode(actual, expected, context, method, path, heade
 }
 
 async function validateFieldsExists(body, fields, context, method, path, headers, response, requestBody) {
-    fields.every(field => {
+    fields.forEach(field => {
         try {
             expect(getNestedValue(field, body), `${field} present in body`).not.to.be.undefined
         } catch (error) {

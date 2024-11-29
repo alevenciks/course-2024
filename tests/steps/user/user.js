@@ -50,3 +50,19 @@ export async function deleteUser() {
         )
     })
 }
+
+export async function createUserWithoutParam(testName, paramToRemove, assertionMessage) {
+    it(testName, async function () {
+        const requestBody = await getCreateUserRequestBody()
+        paramToRemove === 'password' ? delete requestBody.password : delete requestBody.email
+    
+        await request(this, 'POST', '/user', requestBody, false, 
+            {
+                statusCode : 400,
+                expectedValues: [
+                    {path: 'message', value: assertionMessage}
+                ]
+            }
+        )
+    })
+}

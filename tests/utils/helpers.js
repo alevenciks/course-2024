@@ -15,3 +15,7 @@ export async function generateRandomPassword() {
     global.executionVariables['userPassword'] = password
     return password
 }
+
+export async function generateRandomString() {
+    return Math.random().toString(36).substring(2,11)
+}
