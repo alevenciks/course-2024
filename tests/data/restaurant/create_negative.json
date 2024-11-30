@@ -1,0 +1,16 @@
+[
+    {
+        "requestBody": {
+            "name": "testName"
+        },
+        "testCaseName": "Create restaurant without description",
+        "messageValue": "Restaurant validation failed: description: Path `description` is required."
+    },
+    {
+        "requestBody": {
+            "description": "testDescr"
+        },
+        "testCaseName": "Create restaurant without name",
+        "messageValue": "Restaurant validation failed: name: Path `name` is required."
+    }
+]
