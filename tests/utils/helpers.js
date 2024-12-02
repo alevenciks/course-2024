@@ -22,6 +22,18 @@ export async function generateRandomString(size = 12) {
     while (randomString.length < size) {
        randomString += Math.random().toString(36).substring(2)
     }
-    
+
     return randomString.substring(0, size)
+}
+
+export async function generateRandomInteger(size = 5) {
+    let generatedInteger = ''
+    const digits = '0123456789'
+
+    for (let i = 0; i < size; i++) {
+        const randomIndex = Math.floor(Math.random() * digits.length)
+        generatedInteger += digits[randomIndex]
+    }
+
+    return parseInt(generatedInteger, 10)
 }

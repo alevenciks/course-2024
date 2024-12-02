@@ -39,7 +39,21 @@ export async function request(context, method, path, body = undefined, auth = tr
             if (asserts.executionVariables) {
                 await setExecutionVariables(responseBody, asserts.executionVariables)
             }
-            
+
+            if (asserts.expectedValuesInArrayOfObjects) {
+                await validateExpectedValuesInArrayOfObjects(
+                    responseBody, 
+                    asserts.expectedValuesInArrayOfObjects.fields, 
+                    context, 
+                    method, 
+                    path, 
+                    headers, 
+                    response, 
+                    asserts.expectedValuesInArrayOfObjects.key, 
+                    asserts.expectedValuesInArrayOfObjects.value,
+                    undefined
+                )
+            }
 
             break
         case 'POST':
@@ -171,6 +185,25 @@ async function validateExpectedValues(body, fields, context, method, path, heade
             assert.fail(actual, field.value, `${field.path} expected value is ${field.value}, but actual was ${actual}`)
         }
     })
+}
+
+async function validateExpectedValuesInArrayOfObjects(body, fields, context, method, path, headers, response, key, value, requestBody) {
+
+    const objectToValidate = body.find(item => item[key] === value)
+    
+    if (!objectToValidate) {
+        assert.fail(key, value, `object with key ${key} and ${value} value not found`)
+    }
+
+    // fields.forEach(field => {
+    //     try {
+    //         expect(getNestedValue(field.path, body), `${field.path} not equal to ${field.value}`).to.be.equal(field.value)
+    //     } catch (error) {
+    //         addRequestInfoToReport(context, method, path, headers, response, requestBody)
+    //         const actual = getNestedValue(field.path, body)
+    //         assert.fail(actual, field.value, `${field.path} expected value is ${field.value}, but actual was ${actual}`)
+    //     }
+    // })
 }
 
 async function validateExpectedTypes(body, fields, context, method, path, headers, response, requestBody) {

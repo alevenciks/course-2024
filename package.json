@@ -7,7 +7,8 @@
   "license": "ISC",
   "scripts": {
     "user": "mocha 'tests/scenarios/user/user.js' --reporter mochawesome --timeout 20000",
-    "restaurant": "mocha 'tests/scenarios/restaurant/restaurant.js' --reporter mochawesome --timeout 20000"
+    "restaurant": "mocha 'tests/scenarios/restaurant/restaurant.js' --reporter mochawesome --timeout 20000",
+    "meal": "mocha 'tests/scenarios/meal/meal.js' --reporter mochawesome --timeout 20000"
   },
   "devDependencies": {
     "chai": "^5.1.2",
