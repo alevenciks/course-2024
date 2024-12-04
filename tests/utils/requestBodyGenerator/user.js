@@ -2,12 +2,13 @@ import accountRequestBody from '../../data/user/create_account.json' assert { ty
 import loginRequestBody from '../../data/user/login.json' assert { type: 'json' }
 import { config } from '../../../config.js'
 import { generateRandomEmail, generateRandomPassword } from '../helpers.js'
+import { faker } from '@faker-js/faker'
 
 export async function getCreateUserRequestBody() {
     accountRequestBody.name = config[global.env].name
     accountRequestBody.surname = config[global.env].surname
     accountRequestBody.password = await generateRandomPassword()
-    accountRequestBody.email = await generateRandomEmail()
+    accountRequestBody.email = faker.internet.email()
     
     return accountRequestBody
 }

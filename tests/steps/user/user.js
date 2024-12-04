@@ -5,6 +5,7 @@ import { config } from '../../../config.js'
 export async function createUser() {
     it('Create user account', async function () {
         const requestBody = await getCreateUserRequestBody()
+
         await request(this, 'POST', '/user', requestBody, false, 
             {
                 statusCode : 201,

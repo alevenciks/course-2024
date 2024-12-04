@@ -1,9 +1,10 @@
 import restaurantRequestBody from '../../data/restaurant/create.json' assert { type: 'json' }
 import { generateRandomString } from '../helpers.js'
+import { faker } from '@faker-js/faker'
 
 export async function getCreateOrUpdateRestaurantRequestBody() {
-    restaurantRequestBody.name = await generateRandomString(6)
-    restaurantRequestBody.description = await generateRandomString(14)
+    restaurantRequestBody.name = faker.company.name()
+    restaurantRequestBody.description = faker.food.ethnicCategory()
     
     return restaurantRequestBody
 }

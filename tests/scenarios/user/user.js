@@ -6,7 +6,7 @@ before(async () => {
 })
 
 it('User Test set', () => {
-    describe.skip(`CRUD User`, () => {
+    describe(`CRUD User`, () => {
         createUser()
         loginUser()
         deleteUser()
