@@ -1,8 +1,5 @@
 export async function generateTestData() {
-    setEnvironment(process.argv.slice(process.argv.length - 1)[0])
-}
-
-function setEnvironment(env) {
+    const env = process.env.npm_config_env || 'STG'
     global.env = env
 }
 
@@ -36,4 +33,11 @@ export async function generateRandomInteger(size = 5) {
     }
 
     return parseInt(generatedInteger, 10)
+}
+
+export async function getCourierTransport() {
+    const transports = ['car', 'bicycle', 'scooter']
+    const index = Math.floor(Math.random() * transports.length)
+
+    return transports[index]
 }

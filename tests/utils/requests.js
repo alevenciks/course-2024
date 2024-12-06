@@ -146,14 +146,12 @@ async function setExecutionVariables(body, variables) {
 }
 
 function addRequestInfoToReport(context, method, path, headers, response, body) {
-    console.log(body)
     addContext(context, `${method} ${path}`)
     addContext(context, {
         title: 'REQUEST HEADERS',
         value: headers
     })
     if (body) {
-        console.log('inside if')
         addContext(context, {
             title: 'REQUEST BODY',
             value: body

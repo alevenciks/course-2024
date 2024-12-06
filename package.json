@@ -6,9 +6,10 @@
   "author": "Aleksejs Levenciks",
   "license": "ISC",
   "scripts": {
-    "user": "mocha 'tests/scenarios/user/user.js' --reporter mochawesome --timeout 20000",
-    "restaurant": "mocha 'tests/scenarios/restaurant/restaurant.js' --reporter mochawesome --timeout 20000",
-    "meal": "mocha 'tests/scenarios/meal/meal.js' --reporter mochawesome --timeout 20000"
+    "user": "mocha 'tests/scenarios/user/user.js' --reporter mochawesome --reporter-options reportDir=reports,reportFilename=user_report,reportTitle='User Tests',quiet=true --timeout 20000 ; node send-discord-notification.js reports/user_report.json",
+    "restaurant": "mocha 'tests/scenarios/restaurant/restaurant.js' --reporter mochawesome --reporter-options reportDir=reports,reportFilename=restaurant_report,reportTitle='Restaurant Tests',quiet=true --timeout 20000 ; node send-discord-notification.js reports/restaurant_report.json",
+    "meal": "mocha 'tests/scenarios/meal/meal.js' --reporter mochawesome --reporter-options reportDir=reports,reportFilename=meal_report,reportTitle='Meal Tests',quiet=true --timeout 20000 ; node send-discord-notification.js reports/meal_report.json",
+    "courier": "mocha 'tests/scenarios/courier/courier.js' --reporter mochawesome --reporter-options reportDir=reports,reportFilename=courier_report,reportTitle='Courier Tests',quiet=true --timeout 20000 ; node send-discord-notification.js reports/courier_report.json"
   },
   "devDependencies": {
     "chai": "^5.1.2",
@@ -17,6 +18,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^9.3.0",
+    "discord-webhook-node": "^1.1.8",
     "get-nested-value": "^1.0.3",
     "mochawesome": "^7.1.3"
   },
