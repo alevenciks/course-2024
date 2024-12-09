@@ -6,6 +6,17 @@ export async function createUser() {
     it('Create user account', async function () {
         const requestBody = await getCreateUserRequestBody()
 
+        const schema = {
+            type: 'object',
+            properties: {
+              email: {type: 'string'},
+              name: {type: 'string'},
+              surname: {type: 'string'}
+            },
+            required: ['email', 'name', 'surname'],
+            additionalProperties: false,
+        }
+
         await request(this, 'POST', '/user', requestBody, false, 
             {
                 statusCode : 201,
@@ -16,7 +27,8 @@ export async function createUser() {
                                 ],
                 executionVariables: [
                                         {path: 'email', name: 'userEmail'}, 
-                                    ]
+                                    ],
+                validateSchema: schema
             }
         )
     })

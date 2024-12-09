@@ -3,6 +3,7 @@ import supertest from 'supertest'
 import { config } from '../../config.js'
 import { expect, assert } from 'chai'
 import getNestedValue from 'get-nested-value'
+import Ajv from 'ajv'
 
 export async function request(context, method, path, body = undefined, auth = true, asserts = {statusCode : 200}, host = undefined, customHeaders = undefined) {
     const requestST = host ? supertest(host) : supertest(config[global.env].host)
@@ -91,6 +92,17 @@ async function validateExpectedValues(body, fields, context, method, path, heade
             assert.fail(actual, field.value, `${field.path} expected value is ${field.value}, but actual was ${actual}`)
         }
     })
+}
+
+async function validateSchema(body, schema, context, method, path, headers, response, requestBody) {
+    const ajv = new Ajv()
+    const validate = ajv.compile(schema)
+    const isValid = validate(body)
+
+    if (!isValid) {
+        assert.fail(validate.errors[0].message, validate.errors[0].instancePath, 
+            `${validate.errors[0].instancePath} received an error ${validate.errors[0].message}`)
+    }
 }
 
 async function validateExpectedValuesInArrayOfObjects(body, fields, context, method, path, headers, response, key, value, requestBody) {
@@ -199,5 +211,9 @@ async function performValidation(responseBody, asserts, context, method, path, h
             asserts.expectedValuesInArrayOfObjects.value,
             body
         )
+    }
+
+    if (asserts.validateSchema) {
+        await validateSchema(responseBody, asserts.validateSchema, context, method, path, headers, response, body)
     }
 }

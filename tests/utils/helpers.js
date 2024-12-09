@@ -1,3 +1,6 @@
+import csv from 'csv-parser'
+import fs from 'fs'
+
 export async function generateTestData() {
     const env = process.env.npm_config_env || 'STG'
     global.env = env
@@ -40,4 +43,16 @@ export async function getCourierTransport() {
     const index = Math.floor(Math.random() * transports.length)
 
     return transports[index]
+}
+
+export async function readCSVFile(filePath) {
+    return new Promise((resolve, reject) => {
+            const result = []
+
+            fs.createReadStream(filePath).pipe(csv())
+                .on('data', (data) => result.push(data))
+                .on('end', () => resolve(result))
+                .on('error', (err) => reject(err))
+        }
+    )
 }

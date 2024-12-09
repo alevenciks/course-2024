@@ -1,9 +1,8 @@
 import { request } from '../../utils/requests.js'
 import { getCreateOrUpdateRestaurantRequestBody } from '../../utils/requestBodyGenerator/restaurant.js'
 
-export async function createRestaurant() {
+export async function createRestaurant(requestBody) {
     it('Create restaurant', async function () {
-        const requestBody = await getCreateOrUpdateRestaurantRequestBody()
         await request(this, 'POST', '/restaurants', requestBody, true, 
             {
                 statusCode : 201,
